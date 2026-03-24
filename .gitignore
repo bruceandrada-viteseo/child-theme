@@ -1,0 +1,18 @@
+# WordPress
+/wp-admin/
+/wp-includes/
+
+/wp-content/uploads/
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Env
+.env
+
+# OS
+.DS_Store
+Thumbs.db
