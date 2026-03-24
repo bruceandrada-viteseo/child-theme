@@ -17,7 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 function my_child_theme_enqueue_styles() {
 	wp_enqueue_style(
 		'parent-style',
-		get_template_directory_uri() . '/style.css'
+		get_parent_theme_file_uri( 'style.css' ),
+		array(),
+		wp_get_theme()->get( 'Version' )
 	);
 
 	wp_enqueue_style(
