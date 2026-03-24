@@ -44,7 +44,7 @@ function ct_register_settings() {
 add_action( 'admin_init', 'ct_register_settings' );
 
 /**
- * Enqueue admin styles.
+ * Enqueue admin main styles.
  *
  * @return void
  */
