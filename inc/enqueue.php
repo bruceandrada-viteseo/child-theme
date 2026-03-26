@@ -48,3 +48,25 @@ function my_child_theme_enqueue_styles() {
 }
 
 add_action( 'wp_enqueue_scripts', 'my_child_theme_enqueue_styles' );
+
+/**
+ * Add defer to script.
+ *
+ * @param string $tag    The script tag.
+ * @param string $handle The script handle.
+ * @return string
+ */
+function add_defer_to_script( $tag, $handle ) {
+
+	if ( is_admin() ) {
+		return $tag;
+	}
+
+	if ( 'api-script' === $handle ) {
+		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	return $tag;
+}
+
+add_filter( 'script_loader_tag', 'add_defer_to_script', 10, 2 );

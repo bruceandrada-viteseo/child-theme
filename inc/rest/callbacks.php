@@ -23,7 +23,7 @@ function ct_custom_posts( $request ) {
 
 	// Set Cache key request params.
 
-	$cache_key = 'ct_post_' . md5( $per_page . $orderby . $order . $slug );
+	$cache_key = 'ct_post_' . md5( wp_json_encode( $request->get_params() ) );
 
 	$data = get_transient( $cache_key );
 

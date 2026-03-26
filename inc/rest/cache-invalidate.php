@@ -13,7 +13,8 @@
 
 			if (
 			isset( $_GET['clear_cache'] ) &&
-			'1' === $_GET['clear_cache'] &&
+			'1' === $_GET['clear_cache']
+			&&
 			current_user_can( 'manage_options' ) &&
 			isset( $_GET['_wpnonce'] ) &&
 			wp_verify_nonce(
