@@ -20,7 +20,25 @@ function ct_custom_posts( $request ) {
 	$orderby  = $request->get_param( 'orderby' ) ? sanitize_text_field( $request->get_param( 'orderby' ) ) : 'date';
 	$order    = $request->get_param( 'order' ) ? strtoupper( sanitize_text_field( $request->get_param( 'order' ) ) ) : 'DESC';
 	$slug     = $request->get_param( 'slug' ) ? sanitize_title( $request->get_param( 'slug' ) ) : '';
-	$args     = array(
+
+	// Set Cache key request params.
+
+	$cache_key = 'ct_post_' . md5( $per_page . $orderby . $order . $slug );
+
+	$data = get_transient( $cache_key );
+
+	// ✅ CACHE HIT
+	if ( false !== $data ) {
+		return new WP_REST_Response(
+			array(
+				'data'   => $data,
+				'cached' => true,
+			),
+			200
+		);
+	}
+
+	$args = array(
 		'post_type'      => 'post',
 		'posts_per_page' => intval( $per_page ),
 		'orderby'        => $orderby,
@@ -31,6 +49,7 @@ function ct_custom_posts( $request ) {
 		$args['name'] = $slug;
 	}
 
+	// CACHE MISS → query.
 	$query = new WP_Query( $args );
 	$data  = array();
 
@@ -49,6 +68,10 @@ function ct_custom_posts( $request ) {
 
 	wp_reset_postdata();
 
+	// Set Cache for 12 hours.
+
+	set_transient( $cache_key, $data, 12 * HOUR_IN_SECONDS );
+
 	if ( empty( $data ) ) {
 		return new WP_REST_Response(
 			array(
@@ -58,5 +81,11 @@ function ct_custom_posts( $request ) {
 		);
 	}
 
-	return new WP_REST_Response( $data, 200 );
+	return new WP_REST_Response(
+		array(
+			'data'   => $data,
+			'cached' => false,
+		),
+		200
+	);
 }

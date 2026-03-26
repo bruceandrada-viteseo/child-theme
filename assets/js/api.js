@@ -41,14 +41,17 @@ document.addEventListener(
 			)
 			.then(
 				function ( data ) {
+					console.log( data );
 					container.innerHTML = '';
 
-					if ( ! Array.isArray( data ) || 0 === data.length ) {
+					const posts = data.data;
+
+					if ( ! Array.isArray( posts ) || 0 === posts.length ) {
 							container.innerHTML = '<p>No posts found.</p>';
 							return;
 					}
 
-					data.forEach(
+					data.data.forEach(
 						function ( post ) {
 							const el = document.createElement( 'div' );
 
