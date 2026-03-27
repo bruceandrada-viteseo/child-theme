@@ -66,15 +66,15 @@ function my_block_patterns() {
 		array(
 			'title'      => '02 Call To Action Section',
 			'categories' => array( 'mytheme' ),
-			'content'    => '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}}} -->
-			<div class="wp-block-group alignfull has-primary-background-color has-background" style="padding-top:60px;padding-bottom:60px">
+			'content'    => '<!-- wp:group {"align":"full","className":"is-style-cta-panel cta-section"} -->
+			<div class="wp-block-group alignfull is-style-cta-panel cta-section">
 
-				<!-- wp:heading {"textAlign":"center","level":2,"textColor":"white"} -->
-				<h2 class="has-text-align-center has-white-color has-text-color">Ready to Get Started?</h2>
+				<!-- wp:heading {"textAlign":"center","level":2} -->
+				<h2 class="has-text-align-center">Ready to Get Started?</h2>
 				<!-- /wp:heading -->
 
-				<!-- wp:paragraph {"align":"center","textColor":"white"} -->
-				<p class="has-text-align-center has-white-color has-text-color">Join us today and experience the difference.</p>
+				<!-- wp:paragraph {"align":"center"} -->
+				<p class="has-text-align-center">Join us today and experience the difference.</p>
 				<!-- /wp:paragraph -->
 
 				<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
@@ -133,6 +133,15 @@ function my_block_styles() {
 		array(
 			'name'  => 'shadow-box',
 			'label' => 'Shadow Box',
+		)
+	);
+
+	// CTA panel style.
+	register_block_style(
+		'core/group',
+		array(
+			'name'  => 'cta-panel',
+			'label' => 'CTA Panel',
 		)
 	);
 }

@@ -1,13 +1,26 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
-  "version": 2,
+  "version": 3,
   "settings": {
-    "appearanceTools": false,
+    "appearanceTools": true,
     "color": {
       "palette": [
         { "name": "Primary", "slug": "primary", "color": "#ff6600" },
-        { "name": "Secondary", "slug": "secondary", "color": "##003e47"},
-        { "name": "Dark", "slug": "dark", "color": "#222222" }
+        { "name": "Secondary", "slug": "secondary", "color": "#003e47" },
+        { "name": "Dark", "slug": "dark", "color": "#222222" },
+        { "name": "Light", "slug": "light", "color": "#f7f2eb" }
+      ],
+      "gradients": [
+        {
+          "name": "CTA Panel",
+          "slug": "cta-panel",
+          "gradient": "linear-gradient(125deg, #0b2d33 0%, #003e47 45%, #091f25 100%)"
+        },
+        {
+          "name": "CTA Glow",
+          "slug": "cta-glow",
+          "gradient": "linear-gradient(130deg, #ff6600 0%, #ff8a3d 55%, #ffd08a 100%)"
+        }
       ]
     },
     "typography": {
@@ -38,6 +51,60 @@
     },
     "background": {
       
+    },
+    "blocks": {
+      "core/group": {
+        "variations": {
+          "cta-panel": {
+            "color": {
+              "gradient": "var(--wp--preset--gradient--cta-panel)",
+              "text": "var(--wp--preset--color--light)"
+            },
+            "spacing": {
+              "padding": {
+                "top": "64px",
+                "bottom": "64px",
+                "left": "24px",
+                "right": "24px"
+              }
+            },
+            "border": {
+              "width": "1px",
+              "style": "solid",
+              "color": "rgba(255, 255, 255, 0.12)"
+            }
+          }
+        }
+      },
+      "core/button": {
+        "variations": {
+          "cta": {
+            "color": {
+              "gradient": "var(--wp--preset--gradient--cta-glow)",
+              "text": "#0b2d33"
+            },
+            "border": {
+              "radius": "999px",
+              "width": "1px",
+              "style": "solid",
+              "color": "rgba(255, 255, 255, 0.28)"
+            },
+            "spacing": {
+              "padding": {
+                "top": "14px",
+                "bottom": "14px",
+                "left": "36px",
+                "right": "36px"
+              }
+            },
+            "typography": {
+              "fontWeight": "700",
+              "letterSpacing": "0.08em",
+              "textTransform": "uppercase"
+            }
+          }
+        }
+      }
     }
   }
 }

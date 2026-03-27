@@ -22,79 +22,214 @@ body {
 	box-sizing: border-box;
 }
 
+/* Custom header + nav */
 .custom-header {
+	--header-bg: var(--wp--preset--color--secondary, #003e47);
+	--header-deep: #0b2d33;
+	--header-text: var(--wp--preset--color--light, #f7f2eb);
+	--header-muted: rgba(247, 242, 235, 0.7);
+	--header-accent: var(--wp--preset--color--primary, #ff6600);
+	--header-border: rgba(255, 255, 255, 0.14);
+	--header-border: color-mix(in srgb, var(--header-text) 20%, transparent);
+
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #ff6600;
-	padding: 10px 15px;
+	gap: 24px;
+	padding: 16px clamp(20px, 4vw, 48px);
+	border-bottom: 1px solid var(--header-border);
+	background-color: var(--header-bg);
+	background:
+		radial-gradient(
+			1200px 220px at 10% 0%,
+			color-mix(in srgb, var(--header-accent) 30%, transparent),
+			transparent 65%
+		),
+		radial-gradient(
+			900px 200px at 90% 0%,
+			color-mix(in srgb, var(--header-accent) 18%, transparent),
+			transparent 60%
+		),
+		linear-gradient(120deg, var(--header-bg) 0%, #0b2d33 45%, #0b242a 100%);
+	color: var(--header-text);
+}
+
+.custom-header * {
+	box-sizing: border-box;
 }
 
 /* Logo */
-.wp-block-site-logo img {
-	max-width: 120px;
+.custom-header .wp-block-site-logo {
+	display: inline-flex;
+	align-items: center;
+}
+
+.custom-header .wp-block-site-logo img {
+	width: clamp(96px, 12vw, 140px);
 	height: auto;
+	filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
 }
 
 /* Navigation container */
-.wp-block-navigation {
+.custom-header .wp-block-navigation {
 	display: flex;
+	align-items: center;
+	font-family: "Space Grotesk", "Sora", sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
 }
 
 /* Remove bullets */
-.wp-block-navigation ul {
+.custom-header .wp-block-navigation__container,
+.custom-header .wp-block-navigation ul {
+	display: flex;
+	align-items: center;
+	gap: clamp(12px, 2vw, 26px);
 	list-style: none;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
 }
 
 /* Spacing */
-.wp-block-navigation li {
-	margin: 0 20px;
-	color: #000;
+.custom-header .wp-block-navigation li {
+	margin: 0;
+	color: inherit;
 }
 
 /* Links */
-.wp-block-navigation a {
+.custom-header .wp-block-navigation a {
 	position: relative;
 	text-decoration: none;
-	text-transform: uppercase;
-	font-weight: 500;
-	font-size: clamp(12px, 2vw, 18px);
-	letter-spacing: 1px;
-	color: #000;
+	font-weight: 600;
+	font-size: clamp(12px, 1.2vw, 14px);
+	color: var(--header-text);
+	padding: 10px 14px;
+	border-radius: 999px;
+	transition: color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
+}
+
+.custom-header .wp-block-navigation a:after {
+	content: "";
+	position: absolute;
+	left: 12px;
+	right: 12px;
+	bottom: 4px;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--header-accent), transparent);
+	opacity: 0;
+	transform: scaleX(0.6);
+	transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 /* Hover underline */
-.wp-block-navigation a:before {
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 4px;
-	bottom: -8px;
-	left: 0;
-	background-color: #fff;
-	visibility: hidden;
-	transform: scaleX(0);
-	transition: all 0.2s ease-in-out;
+.custom-header .wp-block-navigation a:hover,
+.custom-header .wp-block-navigation a:focus-visible {
+	background-color: rgba(255, 255, 255, 0.12);
+	color: #fff;
+	transform: translateY(-1px);
 }
 
-.wp-block-navigation a:hover:before {
-	visibility: visible;
+.custom-header .wp-block-navigation a:hover:after,
+.custom-header .wp-block-navigation a:focus-visible:after {
+	opacity: 1;
 	transform: scaleX(1);
 }
 
+.custom-header .wp-block-navigation li.current-menu-item > a,
+.custom-header .wp-block-navigation li.current-menu-ancestor > a {
+	background-color: rgba(255, 255, 255, 0.18);
+	color: #fff;
+}
+
+.custom-header .wp-block-navigation__responsive-container-open,
+.custom-header .wp-block-navigation__responsive-container-close {
+	color: var(--header-text);
+	border: 1px solid var(--header-border);
+	border-radius: 999px;
+	padding: 6px 12px;
+}
+
+.custom-header .wp-block-navigation__responsive-container-open:hover,
+.custom-header .wp-block-navigation__responsive-container-close:hover {
+	background-color: rgba(255, 255, 255, 0.14);
+}
+
+.custom-header .wp-block-navigation__responsive-container {
+	background: rgba(11, 45, 51, 0.98);
+	backdrop-filter: blur(12px);
+}
+
+.custom-header .wp-block-navigation__responsive-container-content {
+	padding: 18px 20px 24px;
+}
+
+@media (max-width: 782px) {
+	.custom-header {
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 16px;
+	}
+
+	.custom-header .wp-block-navigation__container,
+	.custom-header .wp-block-navigation ul {
+		gap: 10px;
+	}
+}
+
+/* CTA section panel */
+.is-style-cta-panel {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+}
+
+.is-style-cta-panel:before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(110deg, rgba(255, 255, 255, 0.08), transparent 45%),
+		repeating-linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.07) 0,
+			rgba(255, 255, 255, 0.07) 1px,
+			transparent 1px,
+			transparent 10px
+		);
+	opacity: 0.45;
+	pointer-events: none;
+}
+
+.is-style-cta-panel > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* Leave typography + spacing to FSE styles */
+
 /* CTA BUTTON STYLE */
 .is-style-cta .wp-block-button__link {
-	background: #fff;
-	color: #0d6efd;
-	border-radius: 50px;
-	padding: 12px 30px;
-	font-weight: 600;
-	transition: all 0.3s ease;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.25s ease,
+		filter 0.2s ease;
 }
 
 .is-style-cta .wp-block-button__link:hover {
-	background: #0d6efd;
-	color: #fff;
+	transform: translateY(-2px);
+	box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
+	filter: brightness(1.05);
+}
+
+.is-style-cta .wp-block-button__link:active {
+	transform: translateY(0);
+}
+
+.is-style-cta .wp-block-button__link:focus-visible {
+	outline: 2px solid var(--wp--preset--color--light, #f7f2eb);
+	outline-offset: 3px;
 }
 
 /* OPTIONAL GROUP STYLE */
